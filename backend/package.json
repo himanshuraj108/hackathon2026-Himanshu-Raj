@@ -10,7 +10,25 @@
     "process": "node main.js",
     "single": "node main.js --ticket"
   },
-  "keywords": ["agentic-ai", "support-agent", "react", "node", "groq", "gemini"],
+  "keywords": [
+    "agentic-ai",
+    "support-agent",
+    "react",
+    "node",
+    "groq",
+    "gemini"
+  ],
   "author": "Himanshu",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.61.0",
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "groq-sdk": "^1.1.2",
+    "helmet": "^8.1.0",
+    "mongoose": "^9.4.1",
+    "winston": "^3.19.0"
+  }
 }
