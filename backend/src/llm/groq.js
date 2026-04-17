@@ -1,14 +1,19 @@
 const Groq = require("groq-sdk");
 
 function createGroqProvider() {
-  const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
-  const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
-
   return {
     name: "groq",
-    model: MODEL,
 
     async complete(prompt, options = {}) {
+      // Support comma-separated API keys for rotation/load balancing
+      const keys = (process.env.GROQ_API_KEY || "").split(",").map((k) => k.trim());
+      const apiKey = keys[Math.floor(Math.random() * keys.length)];
+      
+      if (!apiKey) throw new Error("GROQ_API_KEY is missing");
+
+      const client = new Groq({ apiKey });
+      const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+
       const response = await client.chat.completions.create({
         model: MODEL,
         messages: [
