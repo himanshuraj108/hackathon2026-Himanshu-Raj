@@ -1,5 +1,8 @@
 const Groq = require("groq-sdk");
 
+// Global counter for perfect Round-Robin distribution
+let globalRequestCount = 0;
+
 function createGroqProvider() {
   return {
     name: "groq",
@@ -17,10 +20,15 @@ function createGroqProvider() {
 
       const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
       
+      // Determine starting key based on global counter (ensures EXACT even split)
+      const initialKeyIndex = globalRequestCount % cleanKeys.length;
+      globalRequestCount++; // Increment for the next request
+
       let lastError;
 
-      // Real Fallback Sequence: Try each key, if rate limited (429), move to the next key
-      for (let i = 0; i < cleanKeys.length; i++) {
+      // Sequential Fallback: Starts at the round-robin index, cascades through the rest if it hits a 429
+      for (let offset = 0; offset < cleanKeys.length; offset++) {
+        const i = (initialKeyIndex + offset) % cleanKeys.length;
         const apiKey = cleanKeys[i];
         
         try {
