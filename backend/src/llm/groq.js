@@ -9,6 +9,8 @@ function createGroqProvider() {
       const keys = [];
       if (process.env.GROQ_API_KEY) keys.push(...process.env.GROQ_API_KEY.split(","));
       if (process.env.GROQ_API_KEY_2) keys.push(process.env.GROQ_API_KEY_2);
+      if (process.env.GROQ_API_KEY_3) keys.push(process.env.GROQ_API_KEY_3);
+      if (process.env.GROQ_API_KEY_4) keys.push(process.env.GROQ_API_KEY_4);
       
       const cleanKeys = keys.map(k => k.trim()).filter(Boolean);
       if (cleanKeys.length === 0) throw new Error("No GROQ_API_KEY found");
