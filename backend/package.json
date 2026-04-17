@@ -1,0 +1,16 @@
+{
+  "name": "shopwave-agent-backend",
+  "version": "1.0.0",
+  "description": "ShopWave Autonomous Support Resolution Agent — MERN Stack",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "server": "node main.js --server",
+    "dev:server": "nodemon main.js --server",
+    "process": "node main.js",
+    "single": "node main.js --ticket"
+  },
+  "keywords": ["agentic-ai", "support-agent", "react", "node", "groq", "gemini"],
+  "author": "Himanshu",
+  "license": "MIT"
+}

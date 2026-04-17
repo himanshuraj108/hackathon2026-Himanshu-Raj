@@ -1,0 +1,27 @@
+# Environment variable files
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Audit output
+audit_log.json
+dead_letter_queue.json
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build output
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
