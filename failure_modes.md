@@ -120,3 +120,23 @@ Groq API returns a 503 and Gemini also fails (rate limit). Both LLM providers fa
 5. Dashboard DLQ page surfaces the entry for human review.
 
 **Code location:** `src/llm/provider.js`, `main.js` → concurrent task error handler
+ 
+ ---
+
+ ## Failure 7: LLM Rate Limits & API Key Exhaustion
+ 
+ **Scenario:**
+ Groq Free Tier limits tokens per day (TPD) to 100,000. During high concurrency, the application instantly exhausts a single key.
+ 
+ **How the system detects it:**
+ The Groq SDK throws an Error with `status: 429` (Rate Limited).
+ 
+ **Recovery path:**
+ 1. **Strict Load Balancing:** To prevent this proactively, `groq.js` uses a global counter to perfectly distribute tickets across 4 provided Groq API keys in a strict Round-Robin format (25% load each).
+ 2. **Sequential Fallback:** If a specific key still hits a limit (Error 429), the provider immediately iterates to the next available Groq key.
+ 3. **Cross-Provider Fallback:** If all 4 Groq keys fail, the `provider.js` layer catches the error and seamlessly falls back to the Gemini Provider.
+ 4. **Deep Backup:** The Gemini Provider itself has 2 fallback keys across 2 separate models (`gemini-1.5-flash` and `gemini-2.0-flash`).
+ 
+ Providing a massive 6-layer LLM safety net before a ticket ever hits the DLQ.
+ 
+ **Code location:** `src/llm/groq.js`, `src/llm/gemini.js`

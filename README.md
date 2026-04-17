@@ -136,6 +136,7 @@ Ticket Queue (20 tickets)
 ## Agent Capabilities
 
 ### Failure Resilience
+- **6-Layer LLM Fallback** — strict Round-Robin across 4 Groq API keys, gracefully degrading to 2 Gemini backup keys across different models.
 - **Exponential backoff** — 2^attempt × base_delay with ±20% jitter
 - **3 retries** per tool call before failing gracefully
 - **Dead-letter queue** — failed tickets persisted to `dead_letter_queue.json`, never dropped
