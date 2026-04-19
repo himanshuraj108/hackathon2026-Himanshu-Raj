@@ -2,6 +2,8 @@
 
 **Hackathon 2026 — KSOLVES Agentic AI Challenge**
 
+https://shopwave-two.vercel.app/
+
 A production-grade autonomous support agent built on the MERN stack that resolves ShopWave customer support tickets using a ReAct (Reasoning + Acting) loop, concurrent processing, and a live React dashboard.
 
 ---
