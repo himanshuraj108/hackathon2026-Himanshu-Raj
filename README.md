@@ -1,6 +1,5 @@
 # ShopWave Autonomous Support Resolution Agent
 
-**Hackathon 2026 — KSOLVES Agentic AI Challenge**
 
 https://shopwave-two.vercel.app/
 
